@@ -1,7 +1,7 @@
 # F12021_Data_Analytics
 An end to end solution to extract, manage, analyze and visualize publicly available data about the 2021 Formula 1 season
 
-Final Data Visualization available here (https://public.tableau.com/views/2021Dashboard_16587232200670/2021Dashboard?:language=en-US&:display_count=n&:origin=viz_share_link)
+Final Data Visualization available here (https://public.tableau.com/app/profile/vishal.kamalakannan/viz/2021F1Dashboard/2021Dashboard)
 
 Introduction:
 This project is built by Vishal Kamalakannan from the University of Michigan Industrial and Operations Engineering program.
@@ -44,4 +44,4 @@ Data Visualization:
 The race selection is presented through a global map.
 The race highlights is presented as a plot of the T-statistic for each lap in a moving line graph
 The average race pace and the points secured are presented as two separate bar graphs for each driver.
-The data visualization is available here (https://public.tableau.com/views/2021Dashboard_16587232200670/2021Dashboard?:language=en-US&:display_count=n&:origin=viz_share_link)
+The data visualization is available here (https://public.tableau.com/app/profile/vishal.kamalakannan/viz/2021F1Dashboard/2021Dashboard)
