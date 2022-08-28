@@ -4,6 +4,8 @@ A product for narrating the story of a race using race-data driven visualization
 
 Final Data Visualization available here (https://public.tableau.com/app/profile/vishal.kamalakannan/viz/2021F1Dashboard/2021Dashboard)
 
+Youtube demonstration of the dashboard here (https://www.youtube.com/watch?v=lhIcsqQBST8&lc=UgxZmIYdQEBhrDyaOjB4AaABAg)
+
 ## Introduction:
 
 During an F1 races every team makes numerous strategic decisions based on the track position and the lap-speed of each driver.
