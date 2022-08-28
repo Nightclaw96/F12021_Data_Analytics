@@ -1,47 +1,112 @@
 # F12021_Data_Analytics
-An end to end solution to extract, manage, analyze and visualize publicly available data about the 2021 Formula 1 season
+
+A product for narrating the story of a race using race-data driven visualizations
 
 Final Data Visualization available here (https://public.tableau.com/app/profile/vishal.kamalakannan/viz/2021F1Dashboard/2021Dashboard)
 
-Introduction:
-This project is built by Vishal Kamalakannan from the University of Michigan Industrial and Operations Engineering program.
-The primary goal of this project is to display the impact of strategic decisions made by the F1 teams during each race in the 2021 season.
-The velocity of each car depends on the age of it's tyres. The older the tyre gets, the more worn out it becomes leading
-to a loss in traction which reflects in the race pace.
-To get the full picture of a race, one needs to understand the time taken by each driver to complete each lap.
-Additionally, one also needs to understand which tyre was used and for how long by each driver to understand the impact of pitstops during the race.
+## Introduction:
 
-Data Collection:
-The first step of this project is to collect the data required.
-The data about individual laptimes are taken from the Ergast database (http://ergast.com/mrd/)
-The data about the participating drivers, teams and their nationalities were taken from Wikipedia (https://en.wikipedia.org/wiki/2021_Formula_One_World_Championship)
-The data about the layout of each circuit is taken from the F1 website (https://www.formula1.com/en/racing/2021.html)
-The data about the tyre strategies used by each driver is taken from the (https://www.racefans.net/2021-f1-season/2021-f1-statistics/)
+During an F1 races every team makes numerous strategic decisions based on the track position and the lap-speed of each driver.
+The lap-speed of each driver depends on the tyre used, tyre age, lap of the race and each driver's ambient conditions (for eg. traffic).
+To get the full picture of a race, one needs to understand each aforementioned aspect of the race and there is no product built to demonstrate that.
+This product fulfils the brief by narrating the story of the race.
 
-Data ETL (Extract/ Transform/ Load):
-Jupyter notebooks have been used to run python scripts to convert each dataset into an appropriately transformed csv file ready for import.
-Data Management:
-To manage the volume and dimensions of the data a normalised SQL server has been designed to store the data.
-This also allows the data to be scaled up with statistics from other years should the need arise in the future.
-The MySQL server used for this project is in the AWS environment.
+## Overview:
 
-Data Analytics (Track position per lap):
-The track position at the end of each lap for each driver is estimated as a T-statistic based on the time taken by each driver to complete every lap.
-For eg., in race 3 for lap 40, the time taken by each driver to finish that lap is calculated by adding up the laptimes of each driver upto lap 40.
-Based on the time taken by all 20 drivers, a Student's T statistic is evaluated for each driver and that is considered to be a proxy for the track position at lap 40.
-The above step is repeated for each lap of every race.
-This measure gives a uniform way to visualize the track position of each driver at the end of each lap of every race.
-The analytics is done using Jupyter Notebooks in python
+![](Process_Overview.png)
 
-Data Analytics (Average Race Pace):
-The pitstop time for each driver during the lap(s) when he pitted is subtracted from his corresponding laptime.
-The race pace is calculated based on this measure of time and the average is calculated for each driver throughout the race.
-The average race pace is plotted along with the number of pitstops in the same graph as the total number of points secured
-to give a picture of the performance of the driver v/s the final result.
-The analytics is done using Jupyter Notebooks in python
+## Product Requirements
 
-Data Visualization:
-The race selection is presented through a global map.
-The race highlights is presented as a plot of the T-statistic for each lap in a moving line graph
-The average race pace and the points secured are presented as two separate bar graphs for each driver.
-The data visualization is available here (https://public.tableau.com/app/profile/vishal.kamalakannan/viz/2021F1Dashboard/2021Dashboard)
+After discussions with various Formula 1 fans, the following requirements were listed out:
+
+- The product should allow the viewer to select the race he/ she wants to view
+- The product should allow the viewer to select the drivers whose performance to view
+- The product should display all the essential data required to understand the race story
+- The product should summarise the results of the race beyond the points scored
+- The product should be built at minimal cost
+- The product should be easy to share over the internet
+
+## Data Selection
+
+The data required for the narration of each race includes:
+
+- Laptimes
+- Competing drivers
+- Tyre strategy followed
+
+The data is extracted from the following public sources:
+
+- Ergast API (http://ergast.com/mrd/)
+- Formula 1 (https://www.formula1.com/)
+- Wikipedia (https://en.wikipedia.org/wiki/Formula_One)
+- Racefans (https://www.racefans.net/)
+
+## User Stories
+
+After careful consideration, the following user stories have been authored:
+
+- As a product user, I want to view the product on my browser, so I can access it from any device with no setup required
+- As a product user, I want to view all the races on a world map, so I can pick and choose the race depending on the continent I am interested in
+- As a product user, I want to view an interactive video of the race, so I can follow the race from start to finish
+- As a product user, I want to focus on specific drivers, so I can compare the performance of drivers closely matched in the race
+- As a product user, I want to view the summary at the end of the race, so I can understand the results of the race
+- As a product owner, I want to host the data online, so anyone can access it from any device with no setup required at any time of the day
+- As a product owner, I want the total cost to be zero, so I can build it with no sponsorship
+- As a product owner, I want to manage the data in a normalized SQL schema, so I can update or add data with minimal system maintenance
+- As a product owner, I want to share the product demonstration , so I can advertise it across mobile devices on chat applications
+- As a product owner, I want to store user feedback in an organized way, so I can understand and implement user feedback
+
+Solution Design Diagram
+
+![](Sys_Arch.png)
+
+*A high level view of the solution design*
+
+## Data ETL:
+
+**Extraction:**
+
+Ergast API enables the extraction of the data in an automated way. Data from the rest of the sources are copied manually.
+
+**Transformation:**
+
+The data is carefully studied and stored in a normalized SQL server.
+
+![](SQL_Schema.png)
+
+*Normalized Schema of the server*
+
+**Loading:**
+
+The data is loaded into the SQL server as per the SQL Schema
+
+## Data Analysis
+
+**Track Position:**
+
+The laptime data and pitstop time data is extracted from the Ergast database. A new column called racetime is defined for each lap as the rollup of all the laptimes until that lap.
+
+![](Laptime_Rollup.png)
+
+For each lap of each grand prix, there are a maximum of 20 drivers who would have a Racetime statistic. To quantify the relative track position, a one-tailed student’s t statistic is calculated for each driver’s racetime. The higher the t-statistic, the farther ahead the driver is. For each entry in the Laptimes table, a corresponding T-statistic is stored.
+
+**Lap Speed:**
+
+The driving duration of each lap is calculated by subtracting the pitstop time from the laptime. This time is used to calculate the average velocity (mph) for that lap.
+For each driver, the mean and standard deviation of the velocity is calculated and stored as entries in the Results database.
+
+## Data Visualization
+
+Tableau Public is used for visualization given its ease of use, no cost and high technical capabilities
+
+![](Map.png)
+
+*Race Selection*
+
+![](Narration.png)
+
+*Race Narration*
+
+![](Summary.png)
+
+*Race Summary*
