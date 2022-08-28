@@ -56,7 +56,7 @@ After careful consideration, the following user stories have been authored:
 - As a product owner, I want to share the product demonstration , so I can advertise it across mobile devices on chat applications
 - As a product owner, I want to store user feedback in an organized way, so I can understand and implement user feedback
 
-Solution Design Diagram
+**Solution Design Diagram**
 
 ![](Sys_Arch.png)
 
