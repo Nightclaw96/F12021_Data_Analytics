@@ -4,7 +4,7 @@ A product for narrating the story of a race using race-data driven visualization
 
 Final Data Visualization available here (https://public.tableau.com/app/profile/vishal.kamalakannan/viz/2021F1Dashboard/2021Dashboard)
 
-Youtube demonstration of the dashboard here (https://www.youtube.com/watch?v=lhIcsqQBST8&lc=UgxZmIYdQEBhrDyaOjB4AaABAg)
+Youtube demonstration of the dashboard here (https://www.youtube.com/watch?v=lhIcsqQBST8&lc)
 
 ## Introduction:
 
